@@ -43,7 +43,7 @@ You can configure these settings using one of the following methods:
 - Define settings with the `WACK_PREVIEW_SETTINGS` constant
 - Configure settings through the WordPress admin menu
 
-### Setting via WACK_PREVIEW_SETTINGS constant
+### Setting via `WACK_PREVIEW_SETTINGS` constant
 
 Define `WACK_PREVIEW_SETTINGS` in functions.php or similar:
 
@@ -96,6 +96,22 @@ follow the on-screen instructions.
 > configuration - for example, you could define only the `secret_key` as a
 > constant (keeping it out of the database) while managing other settings
 > through the admin screen.
+
+## Preview token payload
+
+The preview token is a JWT token that contains the following payload:
+
+```jsonc
+{
+  "sub": 123, // Post ID (or post slug if "%slug%" template is set in the path mappings)
+  "iss": "wack-preview", // Issuer
+  "iat": 1630000000, // Issued at (UNIX timestamp)
+  "exp": 1630000000 // Expiry time (UNIX timestamp)
+}
+```
+
+This means that the frontend application can verify the token is valid for the
+specified post by checking the `sub` field.
 
 ## API
 

@@ -31,7 +31,13 @@ final class TokenManager
      */
     public function generateToken(WP_Post $post, string $type): string
     {
-        $subject = $type === 'slug' ? $post->post_name : $post->ID; // fallback to ID
+        $subject = $post->ID;
+
+        // Fall back to ID if the post slug is empty even if the type is 'slug'
+        if ($type === 'slug' && !empty($post->post_name)) {
+            $subject = $post->post_name;
+        }
+
         $time = time();
         $payload = [
             'sub' => $subject,
