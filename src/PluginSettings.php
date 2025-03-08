@@ -17,56 +17,10 @@ final class PluginSettings
 
     final private function __construct()
     {
-        // Always use the value from the constant if it exists
-        $frontend_base_url = self::getFrontendBaseUrlFromConstant();
-        if (is_null($frontend_base_url)) {
-            $frontend_base_url = self::getFrontendBaseUrlFromDatabase();
-        }
-        $this->frontend_base_url = $frontend_base_url ?? '';
-
-        // The values from the constant will override the value from the database
-        // If the values are not set in both the constant and the database, use the default values
-        $preview_token_from_database = self::getPreviewTokenFromDatabase() ?? [];
-        $preview_token_from_constant = self::getPreviewTokenFromConstant() ?? [];
-        $preview_token = array_merge(
-            $preview_token_from_database,
-            $preview_token_from_constant,
-        );
-        $this->preview_token = array_merge([
-            'secret_key' => 'THIS_IS_A_DEFAULT_SECRET_KEY', // default to this value
-            'expiry_time' => 60 * 60 * 24 * 7, // default to 1 week
-        ], $preview_token);
-
-        // The values from the constant will override the value from the database
-        $path_mappings_from_database = self::getPathMappingsFromDatabase() ?? [];
-        $path_mappings = self::getPathMappingsFromConstant() ?? [];
-        foreach ($path_mappings_from_database as $key => $value) {
-            if (isset($path_mappings[$key])) {
-                foreach ($value as $subKey => $subValue) {
-                    if (!isset($path_mappings[$key][$subKey])) {
-                        $path_mappings[$key][$subKey] = $subValue;
-                    }
-                }
-            } else {
-                $path_mappings[$key] = $value;
-            }
-        }
-        $this->path_mappings = $path_mappings;
-
-        // If the value exists in the constant, always use that value
-        $disable_permalink_rewrite = self::getDisablePermalinkRewriteOptionFromConstant();
-        if ($disable_permalink_rewrite === true) {
-            $this->disable_permalink_rewrite = true;
-        } elseif ($disable_permalink_rewrite === false) {
-            $this->disable_permalink_rewrite = false;
-        } else {
-            $disable_permalink_rewrite = self::getDisablePermalinkRewriteOptionFromDatabase();
-            if ($disable_permalink_rewrite === true) {
-                $this->disable_permalink_rewrite = true;
-            } else {
-                $this->disable_permalink_rewrite = false;
-            }
-        }
+        $this->frontend_base_url = self::getFrontendBaseUrl();
+        $this->preview_token = self::getPreviewToken();
+        $this->path_mappings = self::getPathMappings();
+        $this->disable_permalink_rewrite = self::getDisablePermalinkRewriteOption();
     }
 
     /**
@@ -135,6 +89,22 @@ final class PluginSettings
     }
 
     /**
+     * Get frontend base URL from the WACK_PREVIEW_SETTINGS constant or plugin settings in the database
+     *
+     * Always use the value from the constant if it exists.
+     */
+    public static function getFrontendBaseUrl(): string
+    {
+        $frontend_base_url = self::getFrontendBaseUrlFromConstant();
+
+        if (is_null($frontend_base_url)) {
+            $frontend_base_url = self::getFrontendBaseUrlFromDatabase();
+        }
+
+        return $frontend_base_url ?? '';
+    }
+
+    /**
      * Get frontend base URL from the WACK_PREVIEW_SETTINGS constant
      */
     public static function getFrontendBaseUrlFromConstant(): string | null
@@ -161,6 +131,27 @@ final class PluginSettings
         }
 
         return $frontend_base_url;
+    }
+
+    /**
+     * Get Preview Token settings
+     *
+     * The values from the WACK_PREVIEW_SETTINGS constant will override the value from the database.
+     * If the values are not set in both the constant and the database, use the default values.
+     */
+    public static function getPreviewToken(): array
+    {
+        $preview_token = self::getPreviewTokenFromDatabase() ?? [];
+        $preview_token_from_constant = self::getPreviewTokenFromConstant() ?? [];
+        $preview_token = array_merge(
+            $preview_token,
+            $preview_token_from_constant,
+        );
+
+        return array_merge([
+            'secret_key' => 'THIS_IS_A_DEFAULT_SECRET_KEY', // default to this value
+            'expiry_time' => 60 * 60 * 24 * 7, // default to 1 week
+        ], $preview_token);
     }
 
     /**
@@ -193,6 +184,31 @@ final class PluginSettings
     }
 
     /**
+     * Get the path mappings from the WACK_PREVIEW_SETTINGS constant or plugin settings in the database
+     *
+     * Always use the value from the constant if it exists.
+     */
+    public static function getPathMappings(): array
+    {
+        $path_mappings = self::getPathMappingsFromConstant() ?? [];
+        $path_mappings_from_database = self::getPathMappingsFromDatabase() ?? [];
+
+        foreach ($path_mappings_from_database as $key => $value) {
+            if (isset($path_mappings[$key])) {
+                foreach ($value as $subKey => $subValue) {
+                    if (!isset($path_mappings[$key][$subKey])) {
+                        $path_mappings[$key][$subKey] = $subValue;
+                    }
+                }
+            } else {
+                $path_mappings[$key] = $value;
+            }
+        }
+
+        return $path_mappings;
+    }
+
+    /**
      * Get the path mappings from the WACK_PREVIEW_SETTINGS constant
      */
     public static function getPathMappingsFromConstant(): array | null
@@ -220,6 +236,24 @@ final class PluginSettings
         }
 
         return $path_mappings;
+    }
+
+    /**
+     * Get the disable permalink rewrite option from the WACK_PREVIEW_SETTINGS constant or plugin settings in the database
+     *
+     * Always use the value from the constant if it exists.
+     */
+    public static function getDisablePermalinkRewriteOption(): bool
+    {
+        $disable_permalink_rewrite = self::getDisablePermalinkRewriteOptionFromConstant();
+
+        if ($disable_permalink_rewrite === true) {
+            return true;
+        } elseif ($disable_permalink_rewrite === false) {
+            return false;
+        } else {
+            return self::getDisablePermalinkRewriteOptionFromDatabase();
+        }
     }
 
     /**
