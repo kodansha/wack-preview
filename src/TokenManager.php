@@ -3,7 +3,9 @@
 namespace WackPreview;
 
 use WP_Post;
+use Exception;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 /**
  * Class TokenManager
@@ -22,7 +24,7 @@ final class TokenManager
     }
 
     /**
-     * Generate a JWT token which includes post ID or alug
+     * Generate a JWT token which includes post ID or slug
      * @param WP_Post $post
      * @param string $type 'id' or 'slug'
      * @return string
@@ -39,5 +41,20 @@ final class TokenManager
         ];
 
         return JWT::encode($payload, $this->key, 'HS256');
+    }
+
+    /**
+     * Verify a JWT token
+     * @param string $token
+     * @return bool
+     */
+    public function verifyToken(string $token): bool
+    {
+        try {
+            JWT::decode($token, new Key($this->key, 'HS256'));
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
     }
 }

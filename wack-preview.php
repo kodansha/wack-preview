@@ -22,6 +22,18 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
 }
 
 /**
+ * Verify preview token
+ *
+ * This is a utility function provided as a convenient API.
+ * It can be used in WordPress themes to verify preview tokens and control access to unpublished posts.
+ */
+function wack_preview_verify_token(string $preview_token): bool
+{
+    $token_manager = new WackPreview\TokenManager();
+    return $token_manager->verifyToken($preview_token);
+}
+
+/**
  * Initialize plugin
  */
 function wack_preview_init()

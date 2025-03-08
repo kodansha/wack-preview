@@ -96,3 +96,11 @@ follow the on-screen instructions.
 > configuration - for example, you could define only the `secret_key` as a
 > constant (keeping it out of the database) while managing other settings
 > through the admin screen.
+
+## API
+
+### `wack_preview_verify_token($preview_token)`
+
+This is a utility function provided as a convenient API. It can be used in
+WordPress themes to verify preview tokens and control access to unpublished
+posts.
