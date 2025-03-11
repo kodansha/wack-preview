@@ -159,7 +159,13 @@ final class AdminMenu
         add_settings_section(
             'wack-preview-settings-mappings-section',
             'Path Mappings',
-            '__return_null',
+            function () {
+                echo '<p>Enter the page paths for published content and preview content on the frontend. You can use two template strings in the paths:</p>';
+                echo '<ul>';
+                echo '<li><code>%id%</code> - Will be replaced with the actual post ID</li>';
+                echo '<li><code>%slug%</code> - Will be replaced with the actual post slug</li>';
+                echo '</ul>';
+            },
             'wack-preview-settings-page',
         );
 
