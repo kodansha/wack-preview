@@ -26,6 +26,16 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
  *
  * This is a utility function provided as a convenient API.
  * It can be used in WordPress themes to verify preview tokens and control access to unpublished posts.
+ *
+ * @param string $preview_token The token string (JWT) to verify
+ * @return bool Returns true if the token is valid, false otherwise
+ *
+ * @example
+ * if (wack_preview_verify_token($token)) {
+ *     // Allow preview access
+ * } else {
+ *     // Deny preview access
+ * }
  */
 function wack_preview_verify_token(string $preview_token): bool
 {

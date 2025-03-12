@@ -115,8 +115,14 @@ specified post by checking the `sub` field.
 
 ## API
 
-### `wack_preview_verify_token($preview_token)`
+### `wack_preview_verify_token`
+
+```text
+function wack_preview_verify_token(string $preview_token): bool
+```
 
 This is a utility function provided as a convenient API. It can be used in
 WordPress themes to verify preview tokens and control access to unpublished
 posts.
+
+It returns `true` if the token is valid, `false` otherwise.
