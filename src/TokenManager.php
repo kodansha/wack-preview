@@ -9,6 +9,7 @@ use Firebase\JWT\Key;
 
 /**
  * Class TokenManager
+ *
  * @package WackPreview
  */
 final class TokenManager
@@ -25,8 +26,10 @@ final class TokenManager
 
     /**
      * Generate a JWT token which includes post ID or slug
+     *
      * @param WP_Post $post
      * @param string $type 'id' or 'slug'
+     *
      * @return string
      */
     public function generateToken(WP_Post $post, string $type): string
@@ -51,7 +54,9 @@ final class TokenManager
 
     /**
      * Verify a JWT token
+     *
      * @param string $token
+     *
      * @return bool
      */
     public function verifyToken(string $token): bool

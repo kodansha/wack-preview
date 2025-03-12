@@ -4,6 +4,7 @@ namespace WackPreview;
 
 /**
  * Class PluginSettings
+ *
  * @package WackPreview
  */
 final class PluginSettings
@@ -25,6 +26,7 @@ final class PluginSettings
 
     /**
      * Get frontend base URL
+     *
      * @return string Frontend base URL
      */
     public function frontendBaseUrl(): string
@@ -34,6 +36,7 @@ final class PluginSettings
 
     /**
      * Get the JWT secret key
+     *
      * @return string JWT secret key
      */
     public function jwtSecretKey(): string
@@ -43,6 +46,7 @@ final class PluginSettings
 
     /**
      * Get the JWT token expiry time
+     *
      * @return int JWT token expiry time
      */
     public function jwtExpiryTime(): int
@@ -77,6 +81,7 @@ final class PluginSettings
 
     /**
      * Get singleton instance
+     *
      * @return PluginSettings
      */
     public static function get(): PluginSettings

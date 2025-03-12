@@ -4,6 +4,7 @@ namespace WackPreview;
 
 /**
  * Class AdminMenu
+ *
  * @package WackPreview
  */
 final class AdminMenu
@@ -70,9 +71,9 @@ final class AdminMenu
                         <h1>WACK Preview Settings</h1>
                         <?php
                         settings_fields('wack-preview-settings');
-                do_settings_sections('wack-preview-settings-page');
-                submit_button();
-                ?>
+                        do_settings_sections('wack-preview-settings-page');
+                        submit_button();
+                        ?>
                     </form>
                 </div>
                 <?php
@@ -100,8 +101,8 @@ final class AdminMenu
             'frontend_base_url',
             'Frontend Base URL',
             function () {
-                $settings_option = get_option("wack_preview_settings");
-                $frontend_base_url = $settings_option['frontend_base_url'] ?? "";
+                $settings_option = get_option('wack_preview_settings');
+                $frontend_base_url = $settings_option['frontend_base_url'] ?? '';
                 ?>
                 <input type="text" name="wack_preview_settings[frontend_base_url]" value="<?php echo $frontend_base_url; ?>">
                 <p>Enter the base URL of your frontend to preview posts (e.g. <code>https://frontend.example.com</code>).</p>
@@ -126,8 +127,8 @@ final class AdminMenu
             'secret_key',
             'Secret Key',
             function () {
-                $settings_option = get_option("wack_preview_settings");
-                $secret_key = $settings_option['preview_token']['secret_key'] ?? "";
+                $settings_option = get_option('wack_preview_settings');
+                $secret_key = $settings_option['preview_token']['secret_key'] ?? '';
                 ?>
                 <input type="text" name="wack_preview_settings[preview_token][secret_key]" value="<?php echo $secret_key; ?>">
                 <p>The secret key used to sign the preview token. Please keep this key secret.</p>
@@ -142,8 +143,8 @@ final class AdminMenu
             'expiry_time',
             'Expiry Time (seconds)',
             function () {
-                $settings_option = get_option("wack_preview_settings");
-                $expiry_time = $settings_option['preview_token']['expiry_time'] ?? "";
+                $settings_option = get_option('wack_preview_settings');
+                $expiry_time = $settings_option['preview_token']['expiry_time'] ?? '';
                 ?>
                 <input type="text" id="expiry_time" name="wack_preview_settings[preview_token][expiry_time]" value="<?php echo $expiry_time; ?>">
                 <p>The expiry time of the preview token in seconds. (e.g. <code>3600</code>)</p>
@@ -177,7 +178,7 @@ final class AdminMenu
                 'path_mappings_publish_' . $post_type->name,
                 $post_type->label . ' (Published)',
                 function () use ($post_type) {
-                    $settings_option = get_option("wack_preview_settings");
+                    $settings_option = get_option('wack_preview_settings');
                     $path_mappings = $settings_option['path_mappings'] ?? [];
                     $path_mapping = $path_mappings[$post_type->name] ?? [];
                     $path_mapping_publish = $path_mapping['publish'] ?? '';
@@ -221,8 +222,8 @@ final class AdminMenu
             'disable_permalink_rewrite',
             'Disable Permalink Rewrite',
             function () {
-                $settings_option = get_option("wack_preview_settings");
-                $disable_permalink_rewrite = $settings_option["advanced_settings"]["disable_permalink_rewrite"] ?? false;
+                $settings_option = get_option('wack_preview_settings');
+                $disable_permalink_rewrite = $settings_option['advanced_settings']['disable_permalink_rewrite'] ?? false;
                 ?>
                 <input type="checkbox" name="wack_preview_settings[advanced_settings][disable_permalink_rewrite]" <?php echo $disable_permalink_rewrite ? 'checked' : ''; ?>>
                 <p>If you do not want the post permalinks to be rewritten by the plugin, turn on this option.</p>
@@ -249,9 +250,9 @@ final class AdminMenu
                 <p><b>NOTE:</b> If the <code>WACK_PREVIEW_SETTINGS</code> constant provides the same setting options, the options entered here will be ignored.</p>
                 <?php
                 settings_fields('wack_preview_settings');
-        do_settings_sections('wack_preview_settings_page');
-        submit_button();
-        ?>
+                do_settings_sections('wack_preview_settings_page');
+                submit_button();
+                ?>
             </form>
         </div>
         <?php
@@ -269,7 +270,7 @@ final class AdminMenu
         // Check if the frontend base URL is a valid URL starting with http:// or https://
         if (isset($options['frontend_base_url'])) {
             $frontend_base_url = $options['frontend_base_url'];
-            if (filter_var($frontend_base_url, FILTER_VALIDATE_URL) === false || (strpos($frontend_base_url, "http://") !== 0 && strpos($frontend_base_url, "https://") !== 0)) {
+            if (filter_var($frontend_base_url, FILTER_VALIDATE_URL) === false || (strpos($frontend_base_url, 'http://') !== 0 && strpos($frontend_base_url, 'https://') !== 0)) {
                 $errors[] = 'Frontend URL: Frontend Base URL must be a valid URL starting with http:// or https://.';
             }
         }
@@ -294,7 +295,7 @@ final class AdminMenu
         }
 
         if (!empty($errors)) {
-            $error_messages = "<ul><li>" . implode("</li><li>", $errors) . "</li></ul>";
+            $error_messages = '<ul><li>' . implode('</li><li>', $errors) . '</li></ul>';
             add_settings_error(
                 'wack_preview_settings',
                 'wack_preview_settings_validation_errors',

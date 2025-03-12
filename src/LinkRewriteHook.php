@@ -7,6 +7,7 @@ use WP_REST_Response;
 
 /**
  * Class LinkRewriteHook
+ *
  * @package WackPreview
  */
 final class LinkRewriteHook

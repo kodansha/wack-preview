@@ -4,6 +4,7 @@ namespace WackPreview;
 
 /**
  * Class Utility
+ *
  * @package WackPreview
  */
 final class Utility

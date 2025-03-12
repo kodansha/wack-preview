@@ -28,6 +28,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
  * It can be used in WordPress themes to verify preview tokens and control access to unpublished posts.
  *
  * @param string $preview_token The token string (JWT) to verify
+ *
  * @return bool Returns true if the token is valid, false otherwise
  *
  * @example

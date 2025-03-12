@@ -4,6 +4,7 @@ namespace WackPreview;
 
 /**
  * Class Constant
+ *
  * @package WackPreview
  */
 final class Constants
