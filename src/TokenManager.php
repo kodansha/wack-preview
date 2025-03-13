@@ -25,7 +25,20 @@ final class TokenManager
     }
 
     /**
-     * Generate a JWT token which includes post ID or slug
+     * Generate a preview token (JWT) which includes post ID or slug
+     *
+     * JWT payload example:
+     * {
+     *   // Post ID (or post slug if "%slug%" template is set in the path mappings)
+     *   // Note: If the post does not have the slug, it will fallback to the post ID even if the "%slug%" template is set.
+     *   "sub": 123,
+     *   // Issuer (always set to `wack-preview`)
+     *   "iss": "wack-preview",
+     *   // Issued at (UNIX timestamp)
+     *   "iat": 1630000000,
+     *   // Expiry time (UNIX timestamp)
+     *   "exp": 1630003600
+     * }
      *
      * @param WP_Post $post
      * @param string $type 'id' or 'slug'
@@ -36,7 +49,7 @@ final class TokenManager
     {
         $subject = $post->ID;
 
-        // Fall back to ID if the post slug is empty even if the type is 'slug'
+        // Fallback to ID if the post slug is empty even if the type is 'slug'.
         if ($type === 'slug' && !empty($post->post_name)) {
             $subject = $post->post_name;
         }

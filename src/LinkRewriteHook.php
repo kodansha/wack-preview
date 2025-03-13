@@ -116,6 +116,11 @@ final class LinkRewriteHook
     /**
      * Replace placeholder with an actual post id or slug
      *
+     * - %id% will be replaced with the post ID
+     * - %slug% will be replaced with the post slug
+     * - If the placeholder is not found, the original path will be returned
+     * - If the post does not have the slug, it will fallback to the post ID
+     *
      * @param string $path_with_placeholder
      * @param WP_Post $post
      *
@@ -124,7 +129,12 @@ final class LinkRewriteHook
     private function replacePlaceholder(string $path_with_placeholder, WP_Post $post): string
     {
         $temp_string = str_replace('%id%', $post->ID, $path_with_placeholder);
-        return str_replace('%slug%', $post->post_name, $temp_string);
+
+        if (empty($post->post_name)) {
+            return str_replace('%slug%', $post->ID, $temp_string);
+        } else {
+            return str_replace('%slug%', $post->post_name, $temp_string);
+        }
     }
 
     /**

@@ -70,6 +70,9 @@ define('WACK_PREVIEW_SETTINGS', [
             'preview' => '/posts/preview/%id%'
         ],
         // Another custom post type you would like to rewrite permalinks
+        // %slug% will be replaced with the actual post slug (name) when generating links
+        // e.g. /news/%slug% -> /news/an-awesome-news
+        // Note that the post slug may not be set in some cases. In such cases, the post ID will be automatically used as a fallback.
         'news' => [
             'publish' => '/news/%slug%',
             // You can set a preview path including query string
@@ -103,10 +106,15 @@ The preview token is a JWT token that contains the following payload:
 
 ```jsonc
 {
-  "sub": 123, // Post ID (or post slug if "%slug%" template is set in the path mappings)
-  "iss": "wack-preview", // Issuer
-  "iat": 1630000000, // Issued at (UNIX timestamp)
-  "exp": 1630000000 // Expiry time (UNIX timestamp)
+  // Post ID (or post slug if "%slug%" template is set in the path mappings)
+  // Note: If the post does not have the slug, it will fallback to the post ID even if the "%slug%" template is set.
+  "sub": 123,
+  // Issuer (always set to `wack-preview`)
+  "iss": "wack-preview",
+  // Issued at (UNIX timestamp)
+  "iat": 1630000000,
+  // Expiry time (UNIX timestamp)
+  "exp": 1630003600
 }
 ```
 
