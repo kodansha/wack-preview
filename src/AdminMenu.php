@@ -147,7 +147,7 @@ final class AdminMenu
                 $expiry_time = $settings_option['preview_token']['expiry_time'] ?? '';
                 ?>
                 <input type="text" id="expiry_time" name="wack_preview_settings[preview_token][expiry_time]" value="<?php echo $expiry_time; ?>">
-                <p>The expiry time of the preview token in seconds. (e.g. <code>3600</code>)</p>
+                <p>The expiry time of the preview token in seconds (e.g. <code>3600</code>). Changing this expiry time will not affect preview tokens that have already been issued.</p>
                 <?php
             },
             'wack-preview-settings-page',
