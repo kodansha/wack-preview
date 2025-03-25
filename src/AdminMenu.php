@@ -238,27 +238,6 @@ final class AdminMenu
     }
 
     /**
-     * Render the sub menu page
-     */
-    public function renderSubMenuPage(): void
-    {
-        settings_errors();
-        ?>
-        <div class="wrap">
-            <form action='options.php' method='post'>
-                <h1>WACK Preview Settings</h1>
-                <p><b>NOTE:</b> If the <code>WACK_PREVIEW_SETTINGS</code> constant provides the same setting options, the options entered here will be ignored.</p>
-                <?php
-                settings_fields('wack_preview_settings');
-                do_settings_sections('wack_preview_settings_page');
-                submit_button();
-                ?>
-            </form>
-        </div>
-        <?php
-    }
-
-    /**
      * Sanitize the options passed in
      *
      * - Convert string value in $options[preview_token][expiry_time] to integer

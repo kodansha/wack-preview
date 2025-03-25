@@ -4,7 +4,7 @@
  * Plugin Name: WACK Preview
  * Plugin URI: https://github.com/kodansha/wack-preview
  * Description: Helpers to make it possible to preview posts on frontend.
- * Version: 0.0.1
+ * Version: 0.1.3
  * Author: KODANSHAtech LLC.
  * Author URI: https://github.com/kodansha
  * License: GPLv3 or later
