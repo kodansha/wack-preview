@@ -67,6 +67,7 @@ final class AdminMenu
             function () {
                 ?>
                 <div class="wrap">
+                    <?php settings_errors(); ?>
                     <form action='options.php' method='post'>
                         <h1>WACK Preview Settings</h1>
                         <?php
