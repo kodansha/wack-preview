@@ -128,6 +128,10 @@ final class AdminMenu
             'secret_key',
             'Secret Key',
             function () {
+                // TODO: Currently, only the secret_key field has special display when defined in the WACK_PREVIEW_SETTINGS constant.
+                // However, in reality, other fields should also prioritize the constant definition when they're defined there,
+                // and their display should be switched accordingly.
+                // We plan to address this in a future update.
                 $settings_option = get_option('wack_preview_settings');
                 $secret_key = $settings_option['preview_token']['secret_key'] ?? '';
                 $is_secret_key_defined = defined('WACK_PREVIEW_SETTINGS') &&
