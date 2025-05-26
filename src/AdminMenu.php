@@ -130,10 +130,22 @@ final class AdminMenu
             function () {
                 $settings_option = get_option('wack_preview_settings');
                 $secret_key = $settings_option['preview_token']['secret_key'] ?? '';
-                ?>
-                <input type="text" name="wack_preview_settings[preview_token][secret_key]" value="<?php echo $secret_key; ?>">
-                <p>The secret key used to sign the preview token. Please keep this key secret.</p>
-                <?php
+                $is_secret_key_defined = defined('WACK_PREVIEW_SETTINGS') &&
+                    isset(WACK_PREVIEW_SETTINGS['preview_token']) &&
+                    isset(WACK_PREVIEW_SETTINGS['preview_token']['secret_key']);
+
+                if ($is_secret_key_defined) {
+                    ?>
+                    <input type="text" disabled value="********">
+                    <p>The secret key used to sign the preview token. Please keep this key secret.</p>
+                    <p class="description">The secret key is defined in the WACK_PREVIEW_SETTINGS constant. To change it, modify your configuration file.</p>
+                    <?php
+                } else {
+                    ?>
+                    <input type="text" name="wack_preview_settings[preview_token][secret_key]" value="<?php echo $secret_key; ?>">
+                    <p>The secret key used to sign the preview token. Please keep this key secret.</p>
+                    <?php
+                }
             },
             'wack-preview-settings-page',
             'wack-preview-settings-token-section',
