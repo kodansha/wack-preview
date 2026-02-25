@@ -57,7 +57,7 @@ final class PluginSettings
     /**
      * Get the path mapping for a post type and type (publish or preview)
      */
-    public function getPathMapping(string $post_type, string $type): string | null
+    public function getPathMapping(string $post_type, string $type): ?string
     {
         if ($type !== 'publish' && $type !== 'preview') {
             // Fallback to publish if the type is not publish or preview
@@ -112,7 +112,7 @@ final class PluginSettings
     /**
      * Get frontend base URL from the WACK_PREVIEW_SETTINGS constant
      */
-    public static function getFrontendBaseUrlFromConstant(): string | null
+    public static function getFrontendBaseUrlFromConstant(): ?string
     {
         $frontend_base_url = null;
 
@@ -126,7 +126,7 @@ final class PluginSettings
     /**
      * Get frontend base URL from plugin settings in the database
      */
-    public static function getFrontendBaseUrlFromDatabase(): string | null
+    public static function getFrontendBaseUrlFromDatabase(): ?string
     {
         $frontend_base_url = null;
         $settings_option = get_option('wack_preview_settings');
@@ -162,7 +162,7 @@ final class PluginSettings
     /**
      * Get Preview Token settings from the WACK_PREVIEW_SETTINGS constant
      */
-    public static function getPreviewTokenFromConstant(): array | null
+    public static function getPreviewTokenFromConstant(): ?array
     {
         $preview_token = null;
 
@@ -176,7 +176,7 @@ final class PluginSettings
     /**
      * Get Preview Token settings from plugin settings in the database
      */
-    public static function getPreviewTokenFromDatabase(): array | null
+    public static function getPreviewTokenFromDatabase(): ?array
     {
         $preview_token = null;
         $settings_option = get_option('wack_preview_settings');
@@ -216,7 +216,7 @@ final class PluginSettings
     /**
      * Get the path mappings from the WACK_PREVIEW_SETTINGS constant
      */
-    public static function getPathMappingsFromConstant(): array | null
+    public static function getPathMappingsFromConstant(): ?array
     {
         $path_mappings = null;
 
@@ -231,7 +231,7 @@ final class PluginSettings
     /**
      * Get the path mappings from plugin settings in the database
      */
-    public static function getPathMappingsFromDatabase(): array | null
+    public static function getPathMappingsFromDatabase(): ?array
     {
         $path_mappings = null;
         $settings_option = get_option('wack_preview_settings');
@@ -264,7 +264,7 @@ final class PluginSettings
     /**
      * Get the disable permalink rewrite option from the WACK_PREVIEW_SETTINGS constant
      */
-    public static function getDisablePermalinkRewriteOptionFromConstant(): bool | null
+    public static function getDisablePermalinkRewriteOptionFromConstant(): ?bool
     {
         if (!isset(Constants::settingsConstant()['advanced_settings']['disable_permalink_rewrite'])) {
             return null;

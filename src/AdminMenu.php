@@ -72,9 +72,9 @@ final class AdminMenu
                         <h1>WACK Preview Settings</h1>
                         <?php
                         settings_fields('wack-preview-settings');
-                        do_settings_sections('wack-preview-settings-page');
-                        submit_button();
-                        ?>
+                do_settings_sections('wack-preview-settings-page');
+                submit_button();
+                ?>
                     </form>
                 </div>
                 <?php
@@ -258,15 +258,14 @@ final class AdminMenu
      *
      * - Convert string value in $options[preview_token][expiry_time] to integer
      */
-    public function optionsSanitizeCallback($options): array | null
+    public function optionsSanitizeCallback($options): ?array
     {
         $errors = [];
 
         // Check if the frontend base URL is a valid URL starting with http:// or https://
         if (isset($options['frontend_base_url'])) {
             $frontend_base_url = $options['frontend_base_url'];
-            if (filter_var($frontend_base_url, FILTER_VALIDATE_URL) === false || ( ! str_starts_with($frontend_base_url,
-                  'http://')
+            if (filter_var($frontend_base_url, FILTER_VALIDATE_URL) === false || (!str_starts_with($frontend_base_url, 'http://')
                 && strpos($frontend_base_url, 'https://') !== 0)) {
                 $errors[] = 'Frontend URL: Frontend Base URL must be a valid URL starting with http:// or https://.';
             }
