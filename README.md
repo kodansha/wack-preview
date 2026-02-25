@@ -84,6 +84,12 @@ define('WACK_PREVIEW_SETTINGS', [
 ```
 
 > [!NOTE]
+> The secret_key is used to sign tokens with HMAC-SHA256 (HS256). A minimum
+> length of 32 bytes is required. Using a shorter key will result in a fatal
+> error at runtime. Generate a sufficiently long random value with a command
+> such as `openssl rand -hex 32`.
+
+> [!NOTE]
 > On multisite WordPress installations, the WACK_PREVIEW_SETTINGS constant does
 > not function as expected. In such cases, configure settings individually for
 > each site using the admin menu.
