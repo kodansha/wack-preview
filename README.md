@@ -19,8 +19,8 @@ before it is published.
 
 ## Installation
 
-- Requires PHP 8.1 or later
-- Requires WordPress 6.7 or later
+- Requires PHP 8.2 or later
+- Requires WordPress 6.9 or later
 - Requires Composer
 
 ### Using Composer
