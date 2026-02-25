@@ -19,11 +19,17 @@
   "homepage": "https://github.com/kodansha/wack-preview",
   "license": "GPL-3.0-or-later",
   "require": {
-    "php": ">=8.1",
-    "firebase/php-jwt": "^6.11.0"
+    "php": ">=8.2",
+    "firebase/php-jwt": "^7.0.2"
   },
   "require-dev": {
-    "10up/wp_mock": "^1.0"
+    "10up/wp_mock": "^1.0",
+    "laravel/pint": "^1.0"
+  },
+  "scripts": {
+    "test": "phpunit",
+    "format": "pint",
+    "format:check": "pint --test"
   },
   "autoload": {
     "psr-4": {

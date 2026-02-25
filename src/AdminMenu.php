@@ -12,7 +12,7 @@ final class AdminMenu
     /**
      * Initialize the settings page
      */
-    public function init()
+    public function init(): void
     {
         add_action('admin_menu', [$this, 'addAdminMenuPage']);
         add_action('admin_menu', [$this, 'addAdminSubMenuPage']);
@@ -72,9 +72,9 @@ final class AdminMenu
                         <h1>WACK Preview Settings</h1>
                         <?php
                         settings_fields('wack-preview-settings');
-                        do_settings_sections('wack-preview-settings-page');
-                        submit_button();
-                        ?>
+                do_settings_sections('wack-preview-settings-page');
+                submit_button();
+                ?>
                     </form>
                 </div>
                 <?php
@@ -134,9 +134,8 @@ final class AdminMenu
                 // We plan to address this in a future update.
                 $settings_option = get_option('wack_preview_settings');
                 $secret_key = $settings_option['preview_token']['secret_key'] ?? '';
-                $is_secret_key_defined = defined('WACK_PREVIEW_SETTINGS') &&
-                    isset(WACK_PREVIEW_SETTINGS['preview_token']) &&
-                    isset(WACK_PREVIEW_SETTINGS['preview_token']['secret_key']);
+                $constant_settings = Constants::settingsConstant();
+                $is_secret_key_defined = isset($constant_settings['preview_token']['secret_key']);
 
                 if ($is_secret_key_defined) {
                     ?>
@@ -259,14 +258,15 @@ final class AdminMenu
      *
      * - Convert string value in $options[preview_token][expiry_time] to integer
      */
-    public function optionsSanitizeCallback($options): array | null
+    public function optionsSanitizeCallback($options): ?array
     {
         $errors = [];
 
         // Check if the frontend base URL is a valid URL starting with http:// or https://
         if (isset($options['frontend_base_url'])) {
             $frontend_base_url = $options['frontend_base_url'];
-            if (filter_var($frontend_base_url, FILTER_VALIDATE_URL) === false || (strpos($frontend_base_url, 'http://') !== 0 && strpos($frontend_base_url, 'https://') !== 0)) {
+            if (filter_var($frontend_base_url, FILTER_VALIDATE_URL) === false || (!str_starts_with($frontend_base_url, 'http://')
+                && strpos($frontend_base_url, 'https://') !== 0)) {
                 $errors[] = 'Frontend URL: Frontend Base URL must be a valid URL starting with http:// or https://.';
             }
         }

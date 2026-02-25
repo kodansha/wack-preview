@@ -165,7 +165,7 @@ final class PluginSettingsTest extends WP_Mock\Tools\TestCase
                         'publish' => '/news/%id%',
                         'preview' => '/news/preview/%id%',
                     ],
-                ]
+                ],
             ]);
         $result = PluginSettings::getPathMappingsFromConstant();
         $this->assertSame([
@@ -209,7 +209,7 @@ final class PluginSettingsTest extends WP_Mock\Tools\TestCase
                         'publish' => '/news/%id%',
                         'preview' => '/news/preview/%id%',
                     ],
-                ]
+                ],
             ]);
         $result = PluginSettings::getPathMappingsFromDatabase();
         $this->assertSame([
@@ -257,7 +257,7 @@ final class PluginSettingsTest extends WP_Mock\Tools\TestCase
             ->andReturn([
                 'advanced_settings' => [
                     'disable_permalink_rewrite' => true,
-                ]
+                ],
             ]);
         $result = PluginSettings::getDisablePermalinkRewriteOptionFromConstant();
         $this->assertTrue($result);
@@ -271,7 +271,7 @@ final class PluginSettingsTest extends WP_Mock\Tools\TestCase
             ->andReturn([
                 'advanced_settings' => [
                     'disable_permalink_rewrite' => 'DUMMY',
-                ]
+                ],
             ]);
         $result = PluginSettings::getDisablePermalinkRewriteOptionFromConstant();
         $this->assertFalse($result);
@@ -299,7 +299,7 @@ final class PluginSettingsTest extends WP_Mock\Tools\TestCase
             ->andReturn([
                 'advanced_settings' => [
                     'disable_permalink_rewrite' => true,
-                ]
+                ],
             ]);
         $result = PluginSettings::getDisablePermalinkRewriteOptionFromDatabase();
         $this->assertTrue($result);
@@ -477,7 +477,7 @@ final class PluginSettingsTest extends WP_Mock\Tools\TestCase
                         'publish' => '/post/%id%',
                         'preview' => '/post/preview/%id%',
                     ],
-                ]
+                ],
             ]);
 
         WP_Mock::userFunction('get_option')
@@ -516,8 +516,8 @@ final class PluginSettingsTest extends WP_Mock\Tools\TestCase
                     ],
                     'news' => [
                         'preview' => '/constant/news/preview/%id%',
-                    ]
-                ]
+                    ],
+                ],
             ]);
         WP_Mock::userFunction('get_option')
             ->with('wack_preview_settings')
@@ -530,8 +530,8 @@ final class PluginSettingsTest extends WP_Mock\Tools\TestCase
                     'news' => [
                         'publish' => '/database/news/%id%',
                         'preview' => '/database/news/preview/%id%',
-                    ]
-                ]
+                    ],
+                ],
             ]);
 
         $instance = PluginSettings::get();
@@ -553,7 +553,7 @@ final class PluginSettingsTest extends WP_Mock\Tools\TestCase
             ->andReturn([
                 'advanced_settings' => [
                     'disable_permalink_rewrite' => true,
-                ]
+                ],
             ]);
 
         WP_Mock::userFunction('get_option')
@@ -573,7 +573,7 @@ final class PluginSettingsTest extends WP_Mock\Tools\TestCase
             ->andReturn([
                 'advanced_settings' => [
                     'disable_permalink_rewrite' => false,
-                ]
+                ],
             ]);
 
         WP_Mock::userFunction('get_option')
@@ -581,7 +581,7 @@ final class PluginSettingsTest extends WP_Mock\Tools\TestCase
             ->andReturn([
                 'advanced_settings' => [
                     'disable_permalink_rewrite' => true,
-                ]
+                ],
             ]);
 
         $instance = PluginSettings::get();
@@ -601,7 +601,7 @@ final class PluginSettingsTest extends WP_Mock\Tools\TestCase
             ->andReturn([
                 'advanced_settings' => [
                     'disable_permalink_rewrite' => true,
-                ]
+                ],
             ]);
 
         $instance = PluginSettings::get();
@@ -621,7 +621,7 @@ final class PluginSettingsTest extends WP_Mock\Tools\TestCase
             ->andReturn([
                 'advanced_settings' => [
                     'disable_permalink_rewrite' => false,
-                ]
+                ],
             ]);
 
         $instance = PluginSettings::get();
