@@ -20,11 +20,15 @@
   "license": "GPL-3.0-or-later",
   "require": {
     "php": ">=8.2",
-    "firebase/php-jwt": "^7.0.2"
+    "firebase/php-jwt": "^7.0"
   },
   "require-dev": {
     "10up/wp_mock": "^1.0",
     "laravel/pint": "^1.0"
+  },
+  "config": {
+    "sort-packages": true,
+    "optimize-autoloader": true
   },
   "scripts": {
     "test": "phpunit",
