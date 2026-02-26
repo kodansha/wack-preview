@@ -28,8 +28,8 @@
   },
   "scripts": {
     "test": "phpunit",
-    "format": "pint",
-    "format:check": "pint --test"
+    "lint": "pint --test",
+    "lint:fix": "pint"
   },
   "autoload": {
     "psr-4": {
