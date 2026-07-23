@@ -56,6 +56,9 @@ final class PluginSettings
 
     /**
      * Get the path mapping for a post type and type (publish or preview)
+     *
+     * Empty strings (e.g. a blank field left unset in the admin UI) are
+     * treated the same as an unconfigured mapping and return null.
      */
     public function getPathMapping(string $post_type, string $type): ?string
     {
@@ -64,11 +67,9 @@ final class PluginSettings
             $type = 'publish';
         }
 
-        if (isset($this->path_mappings[$post_type][$type])) {
-            return $this->path_mappings[$post_type][$type];
-        } else {
-            return null;
-        }
+        $value = $this->path_mappings[$post_type][$type] ?? null;
+
+        return ($value === null || $value === '') ? null : $value;
     }
 
     /**

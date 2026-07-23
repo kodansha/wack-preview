@@ -182,6 +182,7 @@ final class AdminMenu
                 echo '<li><code>%id%</code> - Will be replaced with the actual post ID</li>';
                 echo '<li><code>%slug%</code> - Will be replaced with the actual post slug</li>';
                 echo '</ul>';
+                echo '<p>"Published" and "Preview" paths can be configured independently for each post type. If "Preview" is left blank but "Published" is set, preview links will be rewritten using the "Published" path (with the preview token appended as a query parameter) instead of falling back to WordPress\'s default preview link.</p>';
             },
             'wack-preview-settings-page',
         );

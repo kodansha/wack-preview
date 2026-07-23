@@ -84,6 +84,14 @@ define('WACK_PREVIEW_SETTINGS', [
 ```
 
 > [!NOTE]
+> For each post type, `publish` and `preview` can be configured independently.
+> If `preview` is not set for a post type but `publish` is, preview links will
+> be rewritten using the `publish` path (with the preview token appended as a
+> query parameter), instead of being left as WordPress's default preview link.
+> If neither `publish` nor `preview` is set, the original link is left
+> unchanged.
+
+> [!NOTE]
 > The secret_key is used to sign tokens with HMAC-SHA256 (HS256). A minimum
 > length of 32 bytes is required. Using a shorter key will result in a fatal
 > error at runtime. Generate a sufficiently long random value with a command

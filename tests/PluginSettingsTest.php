@@ -505,6 +505,29 @@ final class PluginSettingsTest extends WP_Mock\Tools\TestCase
     }
 
     // phpcs:ignore
+    public function test_getPathMapping_treats_empty_string_as_not_found(): void
+    {
+        $mock = Mockery::mock('overload:' . Constants::class)->makePartial();
+        $mock->shouldReceive('settingsConstant')
+            ->andReturn([]);
+        WP_Mock::userFunction('get_option')
+            ->with('wack_preview_settings')
+            ->andReturn([
+                'path_mappings' => [
+                    'post' => [
+                        'publish' => '/post/%id%',
+                        'preview' => '',
+                    ],
+                ],
+            ]);
+
+        $instance = PluginSettings::get();
+
+        // 管理画面でフィールドを空欄のまま保存した場合、空文字列は未設定として扱う
+        $this->assertNull($instance->getPathMapping('post', 'preview'));
+    }
+
+    // phpcs:ignore
     public function test_getPathMapping_overwrite_by_constant(): void
     {
         $mock = Mockery::mock('overload:' . Constants::class)->makePartial();

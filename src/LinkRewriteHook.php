@@ -35,11 +35,13 @@ final class LinkRewriteHook
      */
     public function rewritePermalink(string $post_link, WP_Post $post): string
     {
-        if (PluginSettings::get()->disablePermalinkRewriteOption()) {
+        $settings = PluginSettings::get();
+
+        if ($settings->disablePermalinkRewriteOption()) {
             return $post_link;
         }
 
-        $path = PluginSettings::get()->getPathMapping($post->post_type, 'publish');
+        $path = $settings->getPathMapping($post->post_type, 'publish');
 
         if (is_null($path)) {
             return $post_link;
@@ -51,6 +53,10 @@ final class LinkRewriteHook
     /**
      * Rewrite preview link to frontend preview URL
      *
+     * If no 'preview' path mapping is configured for the post type, this falls
+     * back to the 'publish' path mapping (if configured), appending the preview
+     * token as a query parameter.
+     *
      * @param string $preview_link
      * @param WP_Post $post
      *
@@ -58,7 +64,9 @@ final class LinkRewriteHook
      */
     public function rewritePreviewLink(string $preview_link, WP_Post $post): string
     {
-        $path = PluginSettings::get()->getPathMapping($post->post_type, 'preview');
+        $settings = PluginSettings::get();
+        $path = $settings->getPathMapping($post->post_type, 'preview')
+            ?? $settings->getPathMapping($post->post_type, 'publish');
 
         if (is_null($path)) {
             return $preview_link;
