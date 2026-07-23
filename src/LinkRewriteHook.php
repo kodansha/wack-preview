@@ -62,8 +62,9 @@ final class LinkRewriteHook
      */
     public function rewritePreviewLink(string $preview_link, WP_Post $post): string
     {
-        $path = PluginSettings::get()->getPathMapping($post->post_type, 'preview')
-            ?? PluginSettings::get()->getPathMapping($post->post_type, 'publish');
+        $settings = PluginSettings::get();
+        $path = $settings->getPathMapping($post->post_type, 'preview')
+            ?? $settings->getPathMapping($post->post_type, 'publish');
 
         if (is_null($path)) {
             return $preview_link;
