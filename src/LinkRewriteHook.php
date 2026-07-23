@@ -35,11 +35,13 @@ final class LinkRewriteHook
      */
     public function rewritePermalink(string $post_link, WP_Post $post): string
     {
-        if (PluginSettings::get()->disablePermalinkRewriteOption()) {
+        $settings = PluginSettings::get();
+
+        if ($settings->disablePermalinkRewriteOption()) {
             return $post_link;
         }
 
-        $path = PluginSettings::get()->getPathMapping($post->post_type, 'publish');
+        $path = $settings->getPathMapping($post->post_type, 'publish');
 
         if (is_null($path)) {
             return $post_link;
