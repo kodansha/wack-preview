@@ -184,6 +184,32 @@ final class LinkRewriteHookTest extends WP_Mock\Tools\TestCase
     }
 
     // phpcs:ignore
+    public function test_rewritePreviewLink_falls_back_to_publish_path_when_preview_not_set(): void
+    {
+        $this->mockSettings([
+            'frontend_base_url' => 'https://frontend.example.com',
+            'preview_token' => [
+                'secret_key' => 'test-secret-key-for-unit-tests-!!',
+                'expiry_time' => 3600,
+            ],
+            'path_mappings' => [
+                'post' => ['publish' => '/post/%id%'],
+            ],
+        ]);
+
+        $post = $this->createPost(123, 'my-slug', 'post');
+        $hook = new LinkRewriteHook();
+
+        // preview のパスマッピングが存在しない場合は publish のパスマッピングにフォールバックする
+        $result = $hook->rewritePreviewLink('https://wordpress.example.com/?p=123&preview=true', $post);
+
+        $this->assertStringStartsWith(
+            'https://frontend.example.com/post/123?preview=true&preview_token=',
+            $result,
+        );
+    }
+
+    // phpcs:ignore
     public function test_rewritePreviewLink_with_id_placeholder(): void
     {
         $this->mockSettings([
